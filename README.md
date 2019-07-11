@@ -1,4 +1,4 @@
-# Interns
+# Basic files description
 
 Project created with command:
 `ng new --routing=true --style=scss --lintFix=true interns`
@@ -63,13 +63,42 @@ File holds scripts which are responsible for building app, runing development se
 
 ### angular.json
 
-This is angular - cli workspace file. In previous Angular versions this file was named __angular-cli__. With this file we can have one configuration for many applications in single workspace.
+This is angular - cli workspace file. In previous Angular versions this file was named **angular-cli**. With this file we can have one configuration for many applications in single workspace.
 [Article](https://nitayneeman.com/posts/understanding-the-angular-cli-workspace-file/)
 
 ### package-lock.json
 
 Created and updated in every npm install command - connected with node_modules.
 
-###e2e
+# Project structure & architecture
 
-Folder which is reponsible for generating and containing stuff connected with __e2e__ testing. For that kind of tests we using __protractor__.
+### pages
+
+This folder should contains unique views
+
+### services
+
+This folder contains API connected logic. Services at the root level are Injectable classes with public methods.
+
+### __tests__
+
+Folder dedicated for tests. In services making file reading much cleaner.
+
+### __mocks__
+
+Folder which contains dedicated entities mocks for testing purposes and writting functionalities if backend developers are still working on some
+features.
+
+
+
+
+
+
+
+
+# TIPS !
+
+### Use json-generator while implementation
+
+This allows you to mock a lot of data for testing and implementing features before BE devs finish.
+[JSON_GENERATOR](// https://www.json-generator.com/)
