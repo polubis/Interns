@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { User } from '../entities/User';
+import { environment } from 'src/environments/environment';
+import { Auth } from './interfaces/Auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements Auth {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  public logIn = (username: string, password: string): Observable<User> =>
+    this.http.post<User>(`${environment.apiUrl}/login`, { username, password })
 }
