@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BeersComponent } from './beers.component';
+import { BeerProvider } from 'src/app/providers/beer-provider';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BeersComponent', () => {
   let component: BeersComponent;
@@ -8,9 +10,10 @@ describe('BeersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BeersComponent ]
-    })
-    .compileComponents();
+      declarations: [BeersComponent],
+      imports: [HttpClientModule],
+      providers: [BeerProvider]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

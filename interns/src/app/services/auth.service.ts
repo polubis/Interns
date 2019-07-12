@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 
 import { User } from '../entities/User';
 import { environment } from 'src/environments/environment';
-import { Auth } from './interfaces/Auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements Auth {
+export class AuthService {
   constructor(private http: HttpClient) {}
 
   public logIn = (username: string, password: string): Observable<User> =>
