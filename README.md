@@ -254,3 +254,20 @@ to subscribe in component then use @AutoUnsubscribe() directive from dedicated l
 If you need to add a lot of events you can improve performance with adding one event listener to container block and for every item
 dedicated __data-attr__. This will allows you to use e.target.getAttribute('data-attr') function and get needed value without creating 
 spam of events.
+
+# Architectural patterns with angular
+
+### Dependency Injection, MVVC - Modal - View - ViewModel, MVP - Model View Presenter, Provider, Flux
+
+# DevTools
+
+### Augury
+Debugging angular application state and dependency injection.
+
+### Google Analytics
+Connecting Angular SPA to GA script and you can see user interaction with your application.
+
+### HeatMaps
+Connect Angular with heat maps and check which features user using the most.
+
+
