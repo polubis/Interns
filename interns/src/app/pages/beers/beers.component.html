@@ -1,3 +1,51 @@
 <p>
   beers works!
 </p>
+
+<div>
+  MergeMap Example
+
+  When your function returns an Observable, it is not returning a stream, but an instance of Observable. 
+  The mergeMap operator simply maps that instance to a stream
+
+
+  <span *ngIf="mergeExample$ | async as mergeExampleData">
+    {{ mergeExampleData }}
+  </span>
+</div>
+
+<div>
+  NormalMap Example
+
+  This function returns a Observable - not stream. This is reason why we don't have data.
+
+  <span *ngIf="normalMapExample$ | async as normalMapExampleData">
+    {{ normalMapExampleData }}
+  </span>
+</div>
+
+
+<div>
+  ConcatMap Example
+
+  <span *ngIf="concatMapExample$ | async as concatMapExampleData">
+    {{ concatMapExampleData }}
+  </span>
+</div>
+
+
+<div>
+  Merge map 2
+
+  <span *ngIf="mergeMapExample2$ | async as mergeMapExample2data">
+    {{ mergeMapExample2data }}
+  </span>
+</div>
+
+
+<div>
+should we wait for one save request to complete before doing another save? concatMap()
+should we do multiple saves in parallel? mergeMap()
+should we cancel an ongoing save and start a new one? switchMap()
+should we ignore new save attempts while one is already ongoing?
+</div>

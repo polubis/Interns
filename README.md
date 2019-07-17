@@ -243,7 +243,6 @@ export class AppService {
 }
 ```
 
-
 ### Unsubscribe observables always and use async pipe
 
 Using async pipe is always good practice because this pipe have unsubscribe builded in. If you need
@@ -252,7 +251,7 @@ to subscribe in component then use @AutoUnsubscribe() directive from dedicated l
 ### Use data-attr-id in html for more advanced event listeners
 
 If you need to add a lot of events you can improve performance with adding one event listener to container block and for every item
-dedicated __data-attr__. This will allows you to use e.target.getAttribute('data-attr') function and get needed value without creating 
+dedicated **data-attr**. This will allows you to use e.target.getAttribute('data-attr') function and get needed value without creating
 spam of events.
 
 # Architectural patterns with angular
@@ -262,12 +261,111 @@ spam of events.
 # DevTools
 
 ### Augury
+
 Debugging angular application state and dependency injection.
 
 ### Google Analytics
+
 Connecting Angular SPA to GA script and you can see user interaction with your application.
 
 ### HeatMaps
+
 Connect Angular with heat maps and check which features user using the most.
 
+# RxJS
+
+## of()
+
+Creating observables and emitting values - then completing
+
+## concat()
+
+Creating one observable from multiple.
+
+```ts
+const ob1$ = of("a", "b");
+
+const ob2$ = of("x", "y");
+
+const result$ = concat(ob1$, ob2$);
+
+result$.subscribe(data => console.log(data)) // "a, b, x, y"
+```
+
+## merge()
+
+Creting observable with order.
+
+```ts
+const series1$ = interval(1000).pipe(map(val => val*10));
+
+const series2$ = interval(1000).pipe(map(val => val*100));
+
+const result$ = merge(series1$, series2$);
+
+result$.subscribe(console.log);
+```
+
+## switchMap()
+
+**Should we cancel an ongoing save and start a new one?**
+Example: User using some filters in table - sorting, pagination and etc...
+He clicks second page button in pagination. Request is long because we have slow internet.
+So user decides hey - i want items from third page.
+Our internet instantly speed up because we are in train. Second request occurs faster but this first one
+is still in progress.
+User starting exploring searched records but first request has been finished.
+
+`He will see old data from first call`
+
+**switchMap** operator canceling previous subscription and recreating new one.
+
+## mergeMap()
+
+**Should we do multiple saves in parallel?**
+If RxJs world sometimes we wan't to create a Subject. In this subject we are emitting some values - for example
+user typing something in input and we wan't to emit every value. Also we wan't to call server for some data filtered
+by typed phrase.
+
+We can implement this feature in few ways. The most intuitive will be to subscribe for example in ngOnInit() and catch every typed data.
+Then call server.
+
+`Typical implementation`
+
+```ts
+class SomeComponent {
+  constructor(private someService: SomeService) {}
+
+  isFetching: boolean;
+  error: string;
+  data: any[] = [];
+
+  private typedPhrase = new Subject<string>();
+
+  ngOnInit() {
+    this.typedPhrase.subscribe(phrase => {
+      this.isLoading = true;
+
+      this.someService.getData(phrase).subscribe(
+        results => {
+          this.isLoading = false;
+          this.data = results;
+        },
+        error => {
+          this.isLoading = false;
+          this.error = error;
+        }
+      );
+    });
+  }
+
+  handleTyping({ target }: Event) {
+    if (target.value.length > 3 && !this.isLoading) {
+      this.typedPhrase.next(target.value);
+    }
+  }
+}
+```
+
+`Ok this will work but we can make it better - in reactive way`.
 
